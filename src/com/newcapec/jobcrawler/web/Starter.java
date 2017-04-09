@@ -1,5 +1,6 @@
 package com.newcapec.jobcrawler.web;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -64,7 +65,10 @@ public class Starter {
 				}
 				System.out.println("jobUrl= "+ jobUrl);
 				Job assembleJobEntity = assembleJobEntity(jobUrl);
-				
+				if(assembleJobEntity == null)
+				{
+					continue; // 公司被过滤掉了
+				}
 				jobService.addJobInfo(assembleJobEntity);
 				
 			}
@@ -128,9 +132,9 @@ public class Starter {
 		String[] extend_list = extendCompanies.split("\\|");
 		for(int i = 0 ;i<extend_list.length;i++){
 			if(companyName.contains(extend_list[i])){
-				System.out.println("！！！该公司是要排除的！！！");
+				System.out.println(java.text.MessageFormat.format("！！！该公司【{0}】是要排除的！！！",companyName));
 				job = null;
-				break;
+				return job;
 			}
 		}
 		

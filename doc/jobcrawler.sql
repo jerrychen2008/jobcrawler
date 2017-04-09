@@ -1,4 +1,4 @@
-create dababase jobcrawler;
+create database jobcrawler;
 use jobcrawler;
 
 CREATE TABLE `t_jobs` (
